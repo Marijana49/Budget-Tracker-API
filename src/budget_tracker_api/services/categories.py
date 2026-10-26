@@ -1,4 +1,4 @@
-from sqlalchemy import func, select, asc, desc
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 from budget_tracker_api.models import Category, Transaction
 from budget_tracker_api.schemas import CategoryCreate, CategoryUpdate
@@ -60,21 +60,7 @@ def update_category(session: Session, data: CategoryUpdate, category_id: int) ->
     return category
 
 
-def get_categories(session: Session, sort_by: str = "name", order: str = "asc") -> list[Category]:
-    stmt = select(Category)
+def get_categories(session: Session) -> list[Category]:
+    categories = select(Category).order_by(func.lower(Category.name))
 
-    sort_columns = {
-        "id": Category.id,
-        "name": Category.name,
-        "color": Category.color
-    }
-
-    column = sort_columns.get(sort_by, Category.name)
-
-    if order.lower() == "desc":
-        stmt = stmt.order_by(desc(column))
-    else:
-        stmt = stmt.order_by(asc(column))
-
-    categories = session.scalars(stmt).all()
-    return list(categories)
+    return list(session.scalars(categories).all())

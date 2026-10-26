@@ -5,6 +5,8 @@ from budget_tracker_api.exceptions import (
     CategoryNameTaken,
     CategoryNotFound,
     CategoryHasTransactions,
+    InvalidAmount,
+    TransactionNotFound
 )
 
 def register_exception_handlers(app: FastAPI) -> None:
@@ -41,4 +43,14 @@ def register_exception_handlers(app: FastAPI) -> None:
             content={
                 "detail": "Cannot delete a category that has transactions"
             },
+        )
+
+    @app.exception_handler(TransactionNotFound)
+    async def transaction_not_found_handler(
+        request: Request,
+        exc: TransactionNotFound,
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=404,
+            content={"detail": "Transaction not found"},
         )
