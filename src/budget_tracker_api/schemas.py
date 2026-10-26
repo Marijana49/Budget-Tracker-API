@@ -1,6 +1,6 @@
 from pydantic import BaseModel, StringConstraints, Field, ConfigDict
-from typing import Annotated
-from datetime import datetime, date
+from typing import Annotated, Optional
+from datetime import date
 from decimal import Decimal
 from budget_tracker_api.enums import TransactionType
 
@@ -29,14 +29,14 @@ class CategoryRead(BaseModel):
 class TransactionCreate(BaseModel):
     type: TransactionType
     amount: Amount
-    date: datetime.date
+    date: date
     description: Description | None = None
     category_id: int
 
 class TransactionUpdate(BaseModel):
     type: TransactionType | None = None
     amount: Amount | None = None
-    date: datetime.date | None = None
+    date: Optional[date] = None
     description: Description | None = None
 
 class TransactionRead(BaseModel):
@@ -45,7 +45,7 @@ class TransactionRead(BaseModel):
     id: int
     type: TransactionType
     amount: Amount
-    date: datetime.date
+    date: date
     description: Description | None = None
 
 # Budget
