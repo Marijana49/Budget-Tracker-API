@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, Numeric, Date, ForeignKey, Enum as SQLAlchemyEnum
+from sqlalchemy import Integer, String, Numeric, Date, UniqueConstraint, ForeignKey, Enum as SQLAlchemyEnum
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from decimal import Decimal
 import datetime
@@ -30,6 +30,7 @@ class Transaction(Base):
 
 class Budget(Base):
     __tablename__ = "budgets"
+    __table_args__ = (UniqueConstraint("category_id", "month"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     month: Mapped[datetime.date] = mapped_column(Date, nullable=False)

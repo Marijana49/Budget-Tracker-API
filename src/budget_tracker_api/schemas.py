@@ -48,6 +48,12 @@ class TransactionRead(BaseModel):
     date: date
     description: Description | None = None
 
+class TransactionPage(BaseModel):
+    items: list[TransactionRead]
+    total: int
+    page: int
+    page_size: int
+    
 # Budget
 class BudgetCreate(BaseModel):
     month: date

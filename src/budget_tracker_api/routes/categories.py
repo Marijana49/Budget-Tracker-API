@@ -18,7 +18,7 @@ def router_get_categories(session: Session = Depends(get_session)):
 
 @router.delete("/{category_id}", response_model=None, status_code=status.HTTP_204_NO_CONTENT)
 def router_delete_category(category_id: int, session: Session = Depends(get_session)):
-    return delete_category(session, category_id)
+    delete_category(session, category_id)
 
 
 @router.patch("/{category_id}", response_model=CategoryRead, status_code=status.HTTP_200_OK)
