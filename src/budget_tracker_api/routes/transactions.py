@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, status, Query, UploadFile
 from sqlalchemy.orm import Session
-from budget_tracker_api.schemas import TransactionCreate, TransactionUpdate, TransactionRead, TransactionPage
+from budget_tracker_api.schemas import TransactionCreate, TransactionUpdate, TransactionRead, TransactionPage, ImportResult
 from budget_tracker_api.database import get_session
 from budget_tracker_api.services.transactions import create_transaction, get_transaction_by_id, delete_transaction, update_transaction, list_transactions
+from budget_tracker_api.services.csv_import import import_transactions
 from budget_tracker_api.enums import TransactionType
 import datetime
 
@@ -40,3 +41,7 @@ def router_list_transactions(
     session: Session = Depends(get_session),
 ):
     return list_transactions(session, page, page_size, date_from, date_to, category_id, type, text)
+
+@router.post("/import", response_model=ImportResult)
+def router_import_transactions(file: UploadFile, session: Session = Depends(get_session)):
+    return import_transactions(session, file.file)

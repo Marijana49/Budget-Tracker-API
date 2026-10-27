@@ -1,0 +1,21 @@
+type,amount,date,description,category
+expense,12.50,2026-10-08,Lunch,Hrana i piće
+income,300.00,2026-10-09,,Plata
+expense,45.99,2026-10-10,Gorivo,Prevoz
+expense,8,2026-10-11,Kafa,HRANA I PIĆE
+income,1000000.00,2026-10-12,Maksimalan iznos,plata
+expense,0.01,2026-10-13,Minimalan iznos,Prevoz
+expense,  20.00  ,  2026-10-14  ,  Razmaci oko vrijednosti  ,  Prevoz  
+EXPENSE,15.00,2026-10-15,Veliko slovo u tipu,Hrana i piće
+expense,abc,2026-10-16,Loš iznos,Prevoz
+expense,0,2026-10-17,Nulti iznos,Prevoz
+expense,-5.00,2026-10-18,Negativan iznos,Prevoz
+expense,10.123,2026-10-19,Tri decimale,Prevoz
+expense,1000000.01,2026-10-20,Iznad limita,Hrana i piće
+expense,10.00,2026-13-45,Neispravan datum,Prevoz
+expense,10.00,,Prazan datum,Prevoz
+expense,10.00,2026-10-21,Nepoznata kategorija,Zabava
+expense,10.00,2026-10-22,Prazna kategorija,
+profit,10.00,2026-10-23,Nepoznat tip,Prevoz
+,10.00,2026-10-24,Prazan tip,Prevoz
+expense,30.00,2026-10-25,"Opis sa zarezom, u navodnicima",Hrana i piće

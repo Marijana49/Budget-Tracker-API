@@ -15,3 +15,16 @@ class InvalidAmount(Exception):
 
 class TransactionNotFound(Exception):
     """Transakcija ne postoji!"""
+
+
+# CSV exeptions
+class InvalidCsvFile(Exception):
+    """CSV nema očekivane kolone ili ga nije moguće pročitati!"""
+
+
+# Budget exeptions
+class BudgetAlreadyExists(Exception):
+    """Budžet već postoji!"""
+
+class BudgetNotFound(Exception):
+    """Budžet ne postoji!"""

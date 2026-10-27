@@ -6,7 +6,10 @@ from budget_tracker_api.exceptions import (
     CategoryNotFound,
     CategoryHasTransactions,
     InvalidAmount,
-    TransactionNotFound
+    TransactionNotFound,
+    InvalidCsvFile,
+    BudgetAlreadyExists,
+    BudgetNotFound
 )
 
 def register_exception_handlers(app: FastAPI) -> None:
@@ -53,4 +56,31 @@ def register_exception_handlers(app: FastAPI) -> None:
         return JSONResponse(
             status_code=404,
             content={"detail": "Transaction not found"},
+        )
+
+    @app.exception_handler(InvalidCsvFile)
+    async def invalid_csv_file_handler(request: Request, exc: InvalidCsvFile) -> JSONResponse:
+        return JSONResponse(
+            status_code=422, content={"detail": str(exc) or "Invalid CSV file"}
+            )
+
+    @app.exception_handler(BudgetAlreadyExists)
+    async def budget_already_exists_handler(
+        request: Request,
+        exc: BudgetAlreadyExists,
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=400, 
+            content={"detail": "Budget already exists for this category and month"},
+        )
+
+    
+    @app.exception_handler(BudgetNotFound)
+    async def budget_not_found_handler(
+        request: Request,
+        exc: BudgetNotFound,
+    ) -> JSONResponse:
+        return JSONResponse(
+            status_code=404,
+            content={"detail": "Budget not found"},
         )

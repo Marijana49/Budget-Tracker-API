@@ -72,3 +72,13 @@ class BudgetRead(BaseModel):
     month: date
     amount: Amount
     category_id: int 
+
+
+# CSV
+class ImportRowError(BaseModel):
+    row: int
+    reason: str
+
+class ImportResult(BaseModel):
+    imported: int
+    failed: list[ImportRowError]
