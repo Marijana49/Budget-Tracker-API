@@ -1,11 +1,10 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-
+from sqlalchemy.exc import IntegrityError
 from budget_tracker_api.exceptions import (
     CategoryNameTaken,
     CategoryNotFound,
     CategoryHasTransactions,
-    InvalidAmount,
     TransactionNotFound,
     InvalidCsvFile,
     BudgetAlreadyExists,
@@ -70,7 +69,7 @@ def register_exception_handlers(app: FastAPI) -> None:
         exc: BudgetAlreadyExists,
     ) -> JSONResponse:
         return JSONResponse(
-            status_code=400, 
+            status_code=409, 
             content={"detail": "Budget already exists for this category and month"},
         )
 
@@ -83,4 +82,11 @@ def register_exception_handlers(app: FastAPI) -> None:
         return JSONResponse(
             status_code=404,
             content={"detail": "Budget not found"},
+        )
+
+    @app.exception_handler(IntegrityError)
+    async def integrity_error_handler(request: Request, exc: IntegrityError) -> JSONResponse:
+        return JSONResponse(
+            status_code=409,
+            content={"detail": "The request conflicts with existing data"},
         )

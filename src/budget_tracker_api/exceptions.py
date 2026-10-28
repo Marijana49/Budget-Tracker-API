@@ -10,9 +10,6 @@ class CategoryHasTransactions(Exception):
 
 
 # Transaction exeptions
-class InvalidAmount(Exception):
-    """Vrijednost nije validna!"""
-
 class TransactionNotFound(Exception):
     """Transakcija ne postoji!"""
 

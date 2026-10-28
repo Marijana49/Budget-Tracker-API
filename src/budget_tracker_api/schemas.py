@@ -61,9 +61,7 @@ class BudgetCreate(BaseModel):
     category_id: int 
 
 class BudgetUpdate(BaseModel):
-    month: date | None = None
     amount: Amount | None = None
-    category_id: int | None = None
 
 class BudgetRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)

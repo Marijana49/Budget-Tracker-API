@@ -16,7 +16,3 @@ register_exception_handlers(app)
 app.include_router(categories.router)
 app.include_router(transactions.router)
 app.include_router(budgets.router)
-
-@app.get("/")
-def proba():
-    return {"message": "Moj projekat"}  
