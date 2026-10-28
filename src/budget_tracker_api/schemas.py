@@ -48,6 +48,7 @@ class TransactionRead(BaseModel):
     amount: Amount
     date: date
     description: Description | None = None
+    category_id: int
 
 class TransactionPage(BaseModel):
     items: list[TransactionRead]
