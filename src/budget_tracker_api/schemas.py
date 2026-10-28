@@ -3,6 +3,7 @@ from typing import Annotated, Optional
 from datetime import date
 from decimal import Decimal
 from budget_tracker_api.enums import TransactionType
+import datetime
 
 Name = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=30)]
 HexColor = Annotated[str, StringConstraints(pattern=r"^#[0-9A-Fa-f]{6}$")]
@@ -80,3 +81,18 @@ class ImportRowError(BaseModel):
 class ImportResult(BaseModel):
     imported: int
     failed: list[ImportRowError]
+
+
+# Summary
+class MonthSummary(BaseModel):
+    month: datetime.date
+    total_income: Decimal
+    total_expense: Decimal
+    balance: Decimal
+    categories: list[CategorySummary]
+
+class CategorySummary(BaseModel):
+    category: str
+    spent: Decimal
+    budget: Decimal | None
+    left: Decimal | None
