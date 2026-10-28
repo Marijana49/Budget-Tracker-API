@@ -221,3 +221,5 @@ __marimo__/
 
 # SQLite baza
 *.db
+
+big.csv
